@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Burnout & Focus Recovery System</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef1f7;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin: 6px;
+      width: 60%;
+    }
+
+    button {
+      background: #34495e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: auto;
+    }
+
+    .result {
+      background: white;
+      padding: 20px;
+      width: 70%;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+
+    .safe { color: green; font-weight: bold; }
+    .medium { color: orange; font-weight: bold; }
+    .high { color: red; font-weight: bold; }
+  </style>
+</head>
+
+<body>
+
+<h1>AI-Based Burnout & Focus Recovery System</h1>
+
+<input type="number" id="screen" placeholder="Daily Screen Time (hours)">
+
+<input type="number" id="sleep" placeholder="Daily Sleep (hours)">
+
+<select id="stress">
+  <option value="low">Low Stress</option>
+  <option value="medium">Medium Stress</option>
+  <option value="high">High Stress</option>
+</select>
+
+<select id="focus">
+  <option value="good">Good Focus</option>
+  <option value="average">Average Focus</option>
+  <option value="poor">Poor Focus</option>
+</select>
+
+<button onclick="analyze()">Analyze Burnout</button>
+
+<div class="result" id="output"></div>
+
+<script>
+  function analyze() {
+    let screen = Number(document.getElementById("screen").value);
+    let sleep = Number(document.getElementById("sleep").value);
+    let stress = document.getElementById("stress").value;
+    let focus = document.getElementById("focus").value;
+
+    let riskScore = 0;
+
+    if (screen > 8) riskScore += 2;
+    if (sleep < 6) riskScore += 2;
+    if (stress === "high") riskScore += 2;
+    if (focus === "poor") riskScore += 2;
+
+    let level = "";
+    let advice = "";
+
+    if (riskScore <= 2) {
+      level = "<span class='safe'>Low Burnout Risk</span>";
+      advice = "Maintain healthy routine 👍";
+    }
+    else if (riskScore <= 5) {
+      level = "<span class='medium'>Moderate Burnout Risk</span>";
+      advice = "Reduce screen time, improve sleep, take breaks";
+    }
+    else {
+      level = "<span class='high'>High Burnout Risk</span>";
+      advice = "Immediate rest, digital detox & focus recovery needed";
+    }
+
+    document.getElementById("output").innerHTML = `
+      <h2>Burnout Analysis Result</h2>
+      <p>Risk Level: ${level}</p>
+      <p>Recovery Recommendation: <b>${advice}</b></p>
+      <p><i>Generated using AI-inspired decision logic</i></p>
+    `;
+  }
+</script>
+
+</body>
+</html>
